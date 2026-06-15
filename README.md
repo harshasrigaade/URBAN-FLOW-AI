@@ -22,8 +22,8 @@ By combining AI, geospatial analytics, and real-time transit data, UrbanFlow AI 
 ---
 
 ## 🚀 Live Demo
-🌍 **Frontend Live App**: [Paste your Railway Frontend URL here!]
-📡 **FastAPI API Swagger Docs**: [Paste your Railway Backend URL here!]/docs
+🌍 **Frontend Live App**: [https://urban-flow-ai-production.up.railway.app/]
+📡 **FastAPI API Swagger Docs**: https://dashboard.render.com/project/prj-d8o1gn3eo5us738c4ffg/docs
 
 ---
 

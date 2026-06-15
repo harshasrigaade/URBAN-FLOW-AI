@@ -113,17 +113,8 @@ UrbanFlow-AI/
 
 ---
 
-## 👥 Seeded Test Accounts
-The SQLite database automatically seeds credentials on first startup for easier evaluation:
 
-* **Citizen User**:
-  * **Username/Email**: `user@urbanflow.ai`
-  * **Password**: `password123`
-* **City Manager (Admin)**:
-  * **Username/Email**: `admin@urbanflow.ai`
-  * **Password**: `adminpassword`
-
----
+https://urban-flow-ai-production.up.railway.app/
 
 ## 👨‍💻 Team
 * **G. Harsha Sri** – AI Specialist

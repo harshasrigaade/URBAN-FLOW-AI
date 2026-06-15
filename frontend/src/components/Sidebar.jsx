@@ -483,21 +483,14 @@ export default function Sidebar({ onOpenChat }) {
               </div>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 w-full">
               <button
                 onClick={onOpenChat}
                 title="AI Travel Assistant Chat"
-                className="bg-brand-teal/20 hover:bg-brand-teal/30 text-brand-neonCyan border border-brand-teal/40 p-2 rounded-xl cursor-pointer transition-all duration-200"
+                className="bg-brand-teal/20 hover:bg-brand-teal/30 text-brand-neonCyan border border-brand-teal/40 py-2 rounded-xl cursor-pointer transition-all duration-200 w-full flex justify-center items-center gap-1.5"
               >
                 <Bot className="w-4 h-4" />
-              </button>
-              
-              <button
-                onClick={logout}
-                title="Sign Out"
-                className="bg-slate-800 hover:bg-slate-700/80 text-slate-300 border border-darkBg-border p-2 rounded-xl cursor-pointer transition-all duration-200"
-              >
-                <LogOut className="w-4 h-4" />
+                <span className="text-[10px] uppercase font-bold tracking-wider">AI Assistant</span>
               </button>
             </div>
           </div>

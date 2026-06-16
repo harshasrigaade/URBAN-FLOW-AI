@@ -12,7 +12,7 @@ By combining AI, geospatial analytics, and real-time transit data, UrbanFlow AI 
 1. 🗺️ **AI Multi-Objective Route Planner**: Optimizes journeys across five metrics (Fastest, Cheapest, Safest, Eco-Friendly, and Balanced) for Walking, Bicycling, Bus, Metro, Train, Auto, Taxi, and Ride Sharing.
 2. 🚦 **AI Traffic Congestion Engine**: Predicts delays and traffic density hotspots using a Machine Learning Decision Tree Regressor model.
 3. 🛡️ **Route Safety Scorer**: Employs an incident-weighted scorer that evaluates coordinates in real-time, classifying routes into Safe, Moderate Risk, and High Risk.
-4. 🚨 **Emergency SOS Console**: Features a One-Tap Panic Alarm, trusted emergency contacts manager, automated SHE Teams responder dispatch simulation, and a fake call generator.
+4. 🚨 **Emergency SOS Console**: Features Trusted emergency contacts manager and a fake call generator.
 5. 🌱 **Sustainability & Carbon Accounting**: Computes active CO₂ emissions offset compared to driving an SUV, monitors travel mode splits, and rewards points (XP) for green commutes.
 6. 💰 **Smart Cost Optimization**: Fare comparison engine across transit modes showing cost vs. time trade-offs and recommending high-savings public transport alternatives.
 7. 📢 **Citizen Hazard Reporter**: Crowd-sourced hazard reporting (floods, collisions, dark alleys) with upvotes and automated municipal verification.

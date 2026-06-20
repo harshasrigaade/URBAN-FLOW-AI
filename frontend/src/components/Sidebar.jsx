@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 
 // Hardcoded landmark coordinate options matching NLP agent (Hyderabad, India)
+// Hardcoded landmark coordinate options matching NLP agent (Hyderabad, India)
 const PRESETS = [
   { name: "Current Location", lat: 17.3850, lng: 78.4867 },
   { name: "Home (Banjara Hills)", lat: 17.4138, lng: 78.4398 },
@@ -15,7 +16,70 @@ const PRESETS = [
   { name: "Hussain Sagar Lake", lat: 17.4239, lng: 78.4738 },
   { name: "Osmania University", lat: 17.4137, lng: 78.5283 },
   { name: "Charminar (Downtown)", lat: 17.3616, lng: 78.4747 },
-  { name: "Inorbit Mall (Shopping)", lat: 17.4330, lng: 78.3828 }
+  { name: "Inorbit Mall (Shopping)", lat: 17.4330, lng: 78.3828 },
+  
+  // Red Line Metro Stations
+  { name: "Miyapur Metro Station", lat: 17.4968, lng: 78.3725 },
+  { name: "JNTU College Metro Station", lat: 17.4930, lng: 78.3916 },
+  { name: "KPHB Colony Metro Station", lat: 17.4842, lng: 78.3986 },
+  { name: "Kukatpally Metro Station", lat: 17.4725, lng: 78.4116 },
+  { name: "Balanagar Metro Station", lat: 17.4690, lng: 78.4215 },
+  { name: "Moosapet Metro Station", lat: 17.4635, lng: 78.4239 },
+  { name: "Bharat Nagar Metro Station", lat: 17.4539, lng: 78.4235 },
+  { name: "Erragadda Metro Station", lat: 17.4518, lng: 78.4278 },
+  { name: "ESI Hospital Metro Station", lat: 17.4475, lng: 78.4325 },
+  { name: "SR Nagar Metro Station", lat: 17.4431, lng: 78.4398 },
+  { name: "Ameerpet Metro Station", lat: 17.4347, lng: 78.4484 },
+  { name: "Punjagutta Metro Station", lat: 17.4265, lng: 78.4533 },
+  { name: "Irrum Manzil Metro Station", lat: 17.4215, lng: 78.4578 },
+  { name: "Khairatabad Metro Station", lat: 17.4128, lng: 78.4619 },
+  { name: "Lakdikapul Metro Station", lat: 17.4042, lng: 78.4650 },
+  { name: "Assembly Metro Station", lat: 17.3995, lng: 78.4715 },
+  { name: "Nampally Metro Station", lat: 17.3919, lng: 78.4735 },
+  { name: "Gandhi Bhavan Metro Station", lat: 17.3855, lng: 78.4755 },
+  { name: "Osmania Medical College Metro Station", lat: 17.3812, lng: 78.4815 },
+  { name: "MG Bus Station Metro Station (MGBS)", lat: 17.3732, lng: 78.4827 },
+  { name: "Malakpet Metro Station", lat: 17.3695, lng: 78.4912 },
+  { name: "New Market Metro Station", lat: 17.3692, lng: 78.5015 },
+  { name: "Musarambagh Metro Station", lat: 17.3698, lng: 78.5135 },
+  { name: "Dilsukhnagar Metro Station", lat: 17.3688, lng: 78.5285 },
+  { name: "Chaitanyapuri Metro Station", lat: 17.3682, lng: 78.5398 },
+  { name: "Victoria Memorial Metro Station", lat: 17.3658, lng: 78.5505 },
+  { name: "LB Nagar Metro Station", lat: 17.3592, lng: 78.5559 },
+  
+  // Blue Line Metro Stations
+  { name: "Raidurg Metro Station", lat: 17.4429, lng: 78.3770 },
+  { name: "HITEC City Metro Station", lat: 17.4435, lng: 78.3820 },
+  { name: "Durgam Cheruvu Metro Station", lat: 17.4428, lng: 78.3905 },
+  { name: "Madhapur Metro Station", lat: 17.4395, lng: 78.4005 },
+  { name: "Peddamma Gudi Metro Station", lat: 17.4355, lng: 78.4110 },
+  { name: "Jubilee Hills Check Post Metro Station", lat: 17.4342, lng: 78.4210 },
+  { name: "Road No. 5 Jubilee Hills Metro Station", lat: 17.4328, lng: 78.4298 },
+  { name: "Yusufguda Metro Station", lat: 17.4345, lng: 78.4358 },
+  { name: "Madhura Nagar Metro Station", lat: 17.4338, lng: 78.4418 },
+  { name: "Begumpet Metro Station", lat: 17.4372, lng: 78.4595 },
+  { name: "Prakash Nagar Metro Station", lat: 17.4385, lng: 78.4705 },
+  { name: "Rasoolpura Metro Station", lat: 17.4402, lng: 78.4820 },
+  { name: "Paradise Metro Station", lat: 17.4425, lng: 78.4905 },
+  { name: "Parade Ground Metro Station", lat: 17.4445, lng: 78.4982 },
+  { name: "Secunderabad East Metro Station", lat: 17.4428, lng: 78.5025 },
+  { name: "Mettuguda Metro Station", lat: 17.4318, lng: 78.5205 },
+  { name: "Tarnaka Metro Station", lat: 17.4285, lng: 78.5375 },
+  { name: "Habsiguda Metro Station", lat: 17.4248, lng: 78.5505 },
+  { name: "NGRI Metro Station", lat: 17.4195, lng: 78.5635 },
+  { name: "Stadium Metro Station", lat: 17.4148, lng: 78.5705 },
+  { name: "Uppal Metro Station", lat: 17.4085, lng: 78.5775 },
+  { name: "Nagole Metro Station", lat: 17.4022, lng: 78.5835 },
+  
+  // Green Line Metro Stations
+  { name: "JBS Parade Ground Metro Station", lat: 17.4445, lng: 78.4982 },
+  { name: "Secunderabad West Metro Station", lat: 17.4405, lng: 78.4998 },
+  { name: "Gandhi Hospital Metro Station", lat: 17.4295, lng: 78.5032 },
+  { name: "Musheerabad Metro Station", lat: 17.4218, lng: 78.5050 },
+  { name: "RTC X Roads Metro Station", lat: 17.4128, lng: 78.5042 },
+  { name: "Chikkadpally Metro Station", lat: 17.4072, lng: 78.5055 },
+  { name: "Narayanaguda Metro Station", lat: 17.3978, lng: 78.4962 },
+  { name: "Sultan Bazaar Metro Station", lat: 17.3862, lng: 78.4935 }
 ];
 
 export default function Sidebar({ onOpenChat }) {
@@ -445,6 +509,57 @@ export default function Sidebar({ onOpenChat }) {
                       <p className="text-[10px] text-slate-300 leading-normal">
                         {routesData.metro_status_message || "Metro service is not available for this route."}
                       </p>
+                    </div>
+                  </div>
+                )}
+
+                {selectedRouteOption && selectedRouteOption.mode === "metro" && (
+                  <div className="mt-3 p-3.5 rounded-xl border border-brand-teal/40 bg-brand-teal/5 flex flex-col gap-2.5 shadow-glass animate-fade-in text-[10px] text-slate-300">
+                    <div className="flex justify-between items-center border-b border-darkBg-border pb-2">
+                      <span className="text-xs font-black text-brand-neonCyan uppercase tracking-wider flex items-center gap-1.5">
+                        🚇 Hyderabad Metro Route
+                      </span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="bg-darkBg-deep/50 p-2 rounded-lg border border-darkBg-border/30">
+                        <span className="text-slate-400 block font-semibold text-[8px] uppercase">FROM</span>
+                        <b className="text-white text-xs">{selectedRouteOption.instructions[0].replace('Source Station: ', '').replace('Source location is not a metro station. Nearest station selected: ', '')}</b>
+                      </div>
+                      <div className="bg-darkBg-deep/50 p-2 rounded-lg border border-darkBg-border/30">
+                        <span className="text-slate-400 block font-semibold text-[8px] uppercase">TO</span>
+                        <b className="text-white text-xs">{selectedRouteOption.instructions[1].replace('Destination Station: ', '').replace('Destination location is not a metro station. Nearest station selected: ', '')}</b>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1 text-[10px]">
+                      <div className="flex justify-between py-1 border-b border-darkBg-border/40">
+                        <span>Line(s) Used:</span>
+                        <span className="font-bold text-slate-100">{selectedRouteOption.instructions[2].replace('Line(s) used: ', '')}</span>
+                      </div>
+                      <div className="flex justify-between py-1 border-b border-darkBg-border/40">
+                        <span>Interchanges:</span>
+                        <span className="font-bold text-brand-neonCyan">{selectedRouteOption.instructions[3].replace('Interchange Station(s): ', '')}</span>
+                      </div>
+                      <div className="flex justify-between py-1 border-b border-darkBg-border/40">
+                        <span>Total Hops:</span>
+                        <span className="font-bold text-slate-100">{selectedRouteOption.instructions[4].replace('Total Hops: ', '')}</span>
+                      </div>
+                      <div className="flex justify-between py-1 border-b border-darkBg-border/40">
+                        <span>Travel Time:</span>
+                        <span className="font-bold text-emerald-400">{selectedRouteOption.instructions[5].replace('Estimated Duration: ', '')}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5 mt-1">
+                      <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Route Path Order:</span>
+                      <div className="bg-darkBg-deep/60 border border-darkBg-border/40 rounded-xl p-2.5 max-h-[140px] overflow-y-auto flex flex-col gap-1 pr-1.5">
+                        {selectedRouteOption.instructions.slice(7).map((step, idx) => (
+                          <div key={idx} className="flex gap-1.5 items-center text-[10px] text-slate-200">
+                            <span className="text-brand-teal font-extrabold">{step.trim()}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}

@@ -17,12 +17,12 @@ export const MobilityProvider = ({ children }) => {
   });
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [authError, setAuthError] = useState("");
-  const [authLoading, setAuthLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(false);
   
   // Geolocation
   const [currentLocation, setCurrentLocation] = useState({ lat: 17.3850, lng: 78.4867 }); // default Hyderabad
   const [startPoint, setStartPoint] = useState({ name: "Current Location (Snapped to Begumpet Rd)", lat: 17.4375, lng: 78.4482 });
-  const [endPoint, setEndPoint] = useState({ name: "Office (HITEC City)", lat: 17.4435, lng: 78.3772 });
+  const [endPoint, setEndPoint] = useState(null);
 
   const [locatingStatus, setLocatingStatus] = useState("idle"); // idle, locating, success, error
   const [locatingLog, setLocatingLog] = useState("");
@@ -158,15 +158,7 @@ export const MobilityProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      try {
-        console.log("[Auth Context] No token found. Performing background auto-login...");
-        await login("user@urbanflow.ai", "password123");
-        console.log("[Auth Context] Background auto-login succeeded.");
-      } catch (err) {
-        console.error("[Auth Context] Background auto-login failed:", err);
-      } finally {
-        setAuthLoading(false);
-      }
+      setAuthLoading(false);
       return;
     }
     try {
@@ -179,13 +171,8 @@ export const MobilityProvider = ({ children }) => {
       setAuthError("");
     } catch (e) {
       console.error("Auth check failed", e);
-      // Fallback: try auto-login if token was invalid or expired
-      try {
-        console.log("[Auth Context] Token invalid or expired. Re-authenticating...");
-        await login("user@urbanflow.ai", "password123");
-      } catch (err) {
-        setAuthLoading(false);
-      }
+      // Fail silently and keep the default mock user state
+      setAuthLoading(false);
     } finally {
       setAuthLoading(false);
     }
@@ -272,14 +259,6 @@ export const MobilityProvider = ({ children }) => {
       loadMobilityData();
     }
   }, [isAuthenticated, currentLocation]);
-
-  // Auto-calculate route when startPoint, endPoint, or routingPreference changes
-  useEffect(() => {
-    if (isAuthenticated && !authLoading && startPoint && endPoint) {
-      calculateRoute(startPoint, endPoint, routingPreference);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, authLoading, startPoint, endPoint, routingPreference]);
 
   // Route Plan Action
   const calculateRoute = async (start, end, preference = routingPreference) => {

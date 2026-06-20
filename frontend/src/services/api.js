@@ -1,4 +1,4 @@
-const BACKEND_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8000`;
+const BACKEND_URL = import.meta.env.VITE_API_URL || `http://127.0.0.1:8000`;
 const BASE_URL = `${BACKEND_URL}/api`;
 async function request(endpoint, options = {}) {
   const token = localStorage.getItem("token");

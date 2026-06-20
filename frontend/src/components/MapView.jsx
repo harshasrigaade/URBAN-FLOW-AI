@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({
 
 export default function MapView() {
   const mapContainerRef = useRef(null);
-  const [mapInstance, setMapInstance] = useState(null);
+  const mapInstanceRef = useRef(null);
   const tileLayerRef = useRef(null);
   const layersRef = useRef({
     route: null,
@@ -68,21 +68,22 @@ export default function MapView() {
     
     L.control.zoom({ position: 'bottomright' }).addTo(map);
     
-    setMapInstance(map);
+    mapInstanceRef.current = map;
 
     // Cleanup on unmount
     return () => {
       map.remove();
-      setMapInstance(null);
+      mapInstanceRef.current = null;
     };
   }, []);
 
   // 1b. Handle dynamic Google Maps style changes
   useEffect(() => {
-    if (!mapInstance) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
 
     if (tileLayerRef.current) {
-      mapInstance.removeLayer(tileLayerRef.current);
+      map.removeLayer(tileLayerRef.current);
     }
 
     let lyrs = 'm';
@@ -94,25 +95,27 @@ export default function MapView() {
       attribution: '&copy; <a href="https://maps.google.com">Google Maps</a>',
       subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
       maxZoom: 20
-    }).addTo(mapInstance);
+    }).addTo(map);
 
     tileLayerRef.current = tiles;
-  }, [mapInstance, mapStyle]);
+  }, [mapStyle]);
 
   // 2. Center map on user location initially
   useEffect(() => {
-    if (mapInstance && currentLocation) {
-      mapInstance.setView([currentLocation.lat, currentLocation.lng], 13);
+    const map = mapInstanceRef.current;
+    if (map && currentLocation) {
+      map.setView([currentLocation.lat, currentLocation.lng], 13);
     }
-  }, [mapInstance, currentLocation]);
+  }, [currentLocation]);
 
   // 3. Draw Route Polyline
   useEffect(() => {
-    if (!mapInstance) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
 
     // Remove existing route layer
     if (layersRef.current.route) {
-      mapInstance.removeLayer(layersRef.current.route);
+      map.removeLayer(layersRef.current.route);
       layersRef.current.route = null;
     }
 
@@ -135,26 +138,27 @@ export default function MapView() {
         opacity: 0.9,
         lineCap: 'round',
         lineJoin: 'round'
-      }).addTo(mapInstance);
+      }).addTo(map);
 
       layersRef.current.route = polyline;
 
       // Fit map bounds to show full route
-      mapInstance.fitBounds(polyline.getBounds(), { padding: [50, 50] });
+      map.fitBounds(polyline.getBounds(), { padding: [50, 50] });
     }
-  }, [mapInstance, selectedRouteOption]);
+  }, [selectedRouteOption]);
 
   // 3b. Draw Start and End Markers
   useEffect(() => {
-    if (!mapInstance) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
 
     // Remove old markers
     if (layersRef.current.startMarker) {
-      mapInstance.removeLayer(layersRef.current.startMarker);
+      map.removeLayer(layersRef.current.startMarker);
       layersRef.current.startMarker = null;
     }
     if (layersRef.current.endMarker) {
-      mapInstance.removeLayer(layersRef.current.endMarker);
+      map.removeLayer(layersRef.current.endMarker);
       layersRef.current.endMarker = null;
     }
 
@@ -170,7 +174,7 @@ export default function MapView() {
       const startMarker = L.marker([startPoint.lat, startPoint.lng], {
         icon: pickupIcon,
         draggable: true
-      }).addTo(mapInstance);
+      }).addTo(map);
 
       startMarker.bindPopup(`
         <div style="padding: 4px; color: #cbd5e1; font-family: sans-serif;">
@@ -206,7 +210,7 @@ export default function MapView() {
       const endMarker = L.marker([endPoint.lat, endPoint.lng], {
         icon: dropoffIcon,
         draggable: true
-      }).addTo(mapInstance);
+      }).addTo(map);
 
       endMarker.bindPopup(`
         <div style="padding: 4px; color: #cbd5e1; font-family: sans-serif;">
@@ -229,14 +233,15 @@ export default function MapView() {
 
       layersRef.current.endMarker = endMarker;
     }
-  }, [mapInstance, startPoint, endPoint]);
+  }, [startPoint, endPoint]);
 
   // 4. Render Congestion Hotspots (Circles) when in Traffic tab
   useEffect(() => {
-    if (!mapInstance) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
 
     // Clear old congestion circles
-    layersRef.current.congestion.forEach(c => mapInstance.removeLayer(c));
+    layersRef.current.congestion.forEach(c => map.removeLayer(c));
     layersRef.current.congestion = [];
 
     if (activeTab === "traffic" && congestionHotspots && congestionHotspots.length > 0) {
@@ -248,7 +253,7 @@ export default function MapView() {
           color: '#EF4444',
           weight: 1,
           opacity: 0.8
-        }).addTo(mapInstance);
+        }).addTo(map);
 
         circle.bindPopup(`
           <div style="padding: 4px;">
@@ -261,14 +266,15 @@ export default function MapView() {
         layersRef.current.congestion.push(circle);
       });
     }
-  }, [mapInstance, congestionHotspots, activeTab]);
+  }, [congestionHotspots, activeTab]);
 
   // 5. Render Safety zones when in Safety tab
   useEffect(() => {
-    if (!mapInstance) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
 
     // Clear old safety hotspots
-    layersRef.current.safetyGrid.forEach(s => mapInstance.removeLayer(s));
+    layersRef.current.safetyGrid.forEach(s => map.removeLayer(s));
     layersRef.current.safetyGrid = [];
 
     if (activeTab === "safety" && safetyHotspots && safetyHotspots.length > 0) {
@@ -287,7 +293,7 @@ export default function MapView() {
           color: riskColor,
           weight: 1.5,
           opacity: 0.6
-        }).addTo(mapInstance);
+        }).addTo(map);
 
         circle.bindPopup(`
           <div style="padding: 4px;">
@@ -301,14 +307,15 @@ export default function MapView() {
         layersRef.current.safetyGrid.push(circle);
       });
     }
-  }, [mapInstance, safetyHotspots, activeTab]);
+  }, [safetyHotspots, activeTab]);
 
   // 6. Draw community reported incident markers
   useEffect(() => {
-    if (!mapInstance) return;
+    const map = mapInstanceRef.current;
+    if (!map) return;
 
     // Clear old incident markers
-    layersRef.current.incidents.forEach(m => mapInstance.removeLayer(m));
+    layersRef.current.incidents.forEach(m => map.removeLayer(m));
     layersRef.current.incidents = [];
 
     if (communityIncidents && communityIncidents.length > 0) {
@@ -337,7 +344,7 @@ export default function MapView() {
           iconAnchor: [12, 12]
         });
 
-        const marker = L.marker([inc.latitude, inc.longitude], { icon: customIcon }).addTo(mapInstance);
+        const marker = L.marker([inc.latitude, inc.longitude], { icon: customIcon }).addTo(map);
 
         // Bind interactive popup content with upvote support
         const popupDiv = document.createElement('div');
@@ -378,7 +385,7 @@ export default function MapView() {
         layersRef.current.incidents.push(marker);
       });
     }
-  }, [mapInstance, communityIncidents]);
+  }, [communityIncidents]);
 
   return (
     <div className="relative w-full h-full min-h-[400px] lg:min-h-0 rounded-2xl overflow-hidden border border-darkBg-border shadow-glass shadow-black">

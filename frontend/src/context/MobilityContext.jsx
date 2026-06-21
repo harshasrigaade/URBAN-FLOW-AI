@@ -158,7 +158,16 @@ export const MobilityProvider = ({ children }) => {
   const checkAuthStatus = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setAuthLoading(false);
+      try {
+        console.log("[Auth] No token found in localStorage. Attempting background auto-login...");
+        await login("user@urbanflow.ai", "password123");
+        console.log("[Auth] Auto-login succeeded.");
+      } catch (err) {
+        console.error("[Auth] Background auto-login failed:", err);
+        setIsAuthenticated(true);
+      } finally {
+        setAuthLoading(false);
+      }
       return;
     }
     try {
@@ -170,9 +179,15 @@ export const MobilityProvider = ({ children }) => {
       }
       setAuthError("");
     } catch (e) {
-      console.error("Auth check failed", e);
-      // Fail silently and keep the default mock user state
-      setAuthLoading(false);
+      console.error("[Auth] Fetching current user failed:", e);
+      localStorage.removeItem("token");
+      try {
+        console.log("[Auth] Retrying background login after user fetch failed...");
+        await login("user@urbanflow.ai", "password123");
+      } catch (retryErr) {
+        console.error("[Auth] Background auto-login retry failed:", retryErr);
+        setIsAuthenticated(true);
+      }
     } finally {
       setAuthLoading(false);
     }
@@ -211,17 +226,8 @@ export const MobilityProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    setCurrentUser({
-      id: 1,
-      name: "Jane Doe",
-      email: "user@urbanflow.ai",
-      role: "user",
-      sustainability_points: 120,
-      emergency_contacts: "Mom:555-0199;Dad:555-0188",
-      phone: "+91 98765 43210"
-    });
-    setIsAuthenticated(true);
     setAdminViewActive(false);
+    checkAuthStatus();
   };
 
   // Main data loaders

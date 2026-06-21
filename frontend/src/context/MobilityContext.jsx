@@ -15,14 +15,14 @@ export const MobilityProvider = ({ children }) => {
     emergency_contacts: "Mom:555-0199;Dad:555-0188",
     phone: "+91 98765 43210"
   });
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authError, setAuthError] = useState("");
-  const [authLoading, setAuthLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(true);
   
   // Geolocation
   const [currentLocation, setCurrentLocation] = useState({ lat: 17.3850, lng: 78.4867 }); // default Hyderabad
   const [startPoint, setStartPoint] = useState({ name: "Current Location (Snapped to Begumpet Rd)", lat: 17.4375, lng: 78.4482 });
-  const [endPoint, setEndPoint] = useState(null);
+  const [endPoint, setEndPoint] = useState({ name: "Office (HITEC City)", lat: 17.4435, lng: 78.3772 });
 
   const [locatingStatus, setLocatingStatus] = useState("idle"); // idle, locating, success, error
   const [locatingLog, setLocatingLog] = useState("");
@@ -259,6 +259,14 @@ export const MobilityProvider = ({ children }) => {
       loadMobilityData();
     }
   }, [isAuthenticated, currentLocation]);
+
+  // Auto-calculate route when startPoint, endPoint, or routingPreference changes
+  useEffect(() => {
+    if (isAuthenticated && !authLoading && startPoint && endPoint) {
+      calculateRoute(startPoint, endPoint, routingPreference);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, authLoading, startPoint, endPoint, routingPreference]);
 
   // Route Plan Action
   const calculateRoute = async (start, end, preference = routingPreference) => {
